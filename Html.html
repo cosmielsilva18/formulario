@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Chamados</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.full {
+    grid-column: span 2;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    background: #2c5364;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #203a43;
+}
+
+.success {
+    display: none;
+    margin-top: 15px;
+    color: green;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Abertura de Chamado</h2>
+
+    <form id="formChamado" action="https://formspree.io/f/SEU_ID" method="POST">
+
+        <div class="grid">
+
+            <div>
+                <label>Nome</label>
+                <input type="text" name="nome" required>
+            </div>
+
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+
+            <div>
+                <label>Empresa</label>
+                <input type="text" name="empresa" required>
+            </div>
+
+            <div>
+                <label>Tipo</label>
+                <select name="tipo">
+                    <option>Fiscal</option>
+                    <option>Contábil</option>
+                    <option>TI</option>
+                    <option>Outro</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Prioridade</label>
+                <select name="prioridade">
+                    <option>Baixa</option>
+                    <option>Média</option>
+                    <option>Alta</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Nº Chamado</label>
+                <input type="text" id="chamado" name="chamado" readonly>
+            </div>
+
+            <div class="full">
+                <label>Descrição</label>
+                <textarea name="descricao" required></textarea>
+            </div>
+
+        </div>
+
+        <button type="submit">Abrir Chamado</button>
+    </form>
+
+    <div class="success" id="msgSucesso">
+        Chamado enviado com sucesso!
+    </div>
+</div>
+
+<script>
+// Gera número automático do chamado
+const numeroChamado = "CH-" + Date.now();
+document.getElementById("chamado").value = numeroChamado;
+
+// Feedback de envio
+const form = document.getElementById("formChamado");
+form.addEventListener("submit", function() {
+    document.getElementById("msgSucesso").style.display = "block";
+});
+</script>
+
+</body>
+</html>
